@@ -25,3 +25,29 @@ file_content = response["Body"].read().decode("utf-8")  # Decoding to string
 
 # Print file content
 print("File Content:\n", file_content)
+
+
+
+code  
+
+import boto3
+
+# AWS credentials (NOT recommended to hardcode in production)
+ACCESS_KEY = "YOUR_ACCESS_KEY"
+SECRET_KEY = "YOUR_SECRET_KEY"
+BUCKET_NAME = "your-bucket-name"
+FILE_KEY = "path/to/your/file.txt"  # Change to your S3 file key
+
+# Initialize S3 client with credentials
+s3_client = boto3.client(
+    "s3",
+    aws_access_key_id=ACCESS_KEY,
+    aws_secret_access_key=SECRET_KEY
+)
+
+# Read file from S3
+response = s3_client.get_object(Bucket=BUCKET_NAME, Key=FILE_KEY)
+data = response['Body'].read().decode('utf-8')  # Decode if it's a text file
+
+print("File Content:\n", data)
+
