@@ -5,3 +5,23 @@ Go to the AWS CLI official download page (scroll to the Windows installer sectio
 
 "AKIA4SDNVX"  "ZX5KSDAQ6D"
 "6dTAumQmJZ7iFCaTS" "npK4hsJEWzDC2sP9hKCkgmL"
+
+
+
+code >>>>
+
+import boto3
+
+# AWS S3 Configurations
+BUCKET_NAME = "testsbg"  # Replace with your S3 bucket name
+FILE_KEY = "datagen_10.txt"  # Replace with the file path inside S3
+
+# Initialize S3 Client
+s3 = boto3.client("s3")
+
+# Read File from S3
+response = s3.get_object(Bucket=BUCKET_NAME, Key=FILE_KEY)
+file_content = response["Body"].read().decode("utf-8")  # Decoding to string
+
+# Print file content
+print("File Content:\n", file_content)
