@@ -35,8 +35,8 @@ import boto3
 # AWS credentials (NOT recommended to hardcode in production)
 ACCESS_KEY = "YOUR_ACCESS_KEY"
 SECRET_KEY = "YOUR_SECRET_KEY"
-BUCKET_NAME = "your-bucket-name"
-FILE_KEY = "path/to/your/file.txt"  # Change to your S3 file key
+BUCKET_NAME = "srm-sbg"
+FILE_KEY = "datagen_10.txt.txt"  # Change to your S3 file key
 
 # Initialize S3 client with credentials
 s3_client = boto3.client(
