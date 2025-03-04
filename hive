@@ -16,7 +16,7 @@ load data local inpath '/home/hadoop/datagen_10.txt'  into table patient_externa
 -- TEXT FILE VS ORC FILE 
 
 create table patient_textfile(pid INT, pname STRING, drug STRING,gender STRING, 
-tot_amt INT) row format delimited fields terminated by ',' stored as texfile; 
+tot_amt INT) row format delimited fields terminated by ',' stored as textfile; 
 
 load data local inpath '/home/hadoop/dataset.csv'  into table patient_textfile; 
 
