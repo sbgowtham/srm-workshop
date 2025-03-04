@@ -14,7 +14,7 @@ def random_drug():
     return random.choice(["avil", "paracetamol", "metacin"])
 
 # Generate dataset with 10 million records
-num_records = 5_000_000
+num_records = 3_000_000
 filename = "dataset.csv"
 
 with open(filename, mode="w", newline="") as file:
