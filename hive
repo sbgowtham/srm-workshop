@@ -1,5 +1,5 @@
 create table patient(pid INT, pname STRING, drug STRING,gender STRING, 
 tot_amt INT) row format delimited fields terminated by ',' stored as textfile; 
 
-load data inpath '/home/user/pfile.txt'  into table patient; 
+load data local inpath '/home/user/pfile.txt'  into table patient; 
 select count(*) from patient; 
