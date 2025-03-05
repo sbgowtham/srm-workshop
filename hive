@@ -49,7 +49,10 @@ PARTITIONED BY (country STRING)
 STORED AS PARQUET;
 
 LOAD DATA local INPATH '/home/hadoop/datagen_10.txt'  
-INTO TABLE patient_static PARTITION (country='India');
+INTO TABLE patient_static PARTITION (country='India');  --- this will load but you cant query this because load command will not convert the csv to parquet 
+
+
+insert into patient_static partition(country='India') select * from patient_big_file;   --- correct way to convert csv to parquet or orc
 
 
 Dynamic Partition 
