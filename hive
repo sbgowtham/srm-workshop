@@ -24,3 +24,78 @@ load data local inpath '/home/hadoop/dataset.csv'  into table patient_textfile;
 create table patient_orc(pid INT, pname STRING, drug STRING,gender STRING,tot_amt INT)  STORED AS ORCFILE;
 
 insert into patient_orc select * from patient_textfile
+
+
+
+Day 3 
+
+create table patient_big_file(pid INT, pname STRING, drug STRING,gender STRING, 
+tot_amt INT) row format delimited fields terminated by ',' stored as textfile; 
+
+
+load data local inpath '/home/hadoop/dataset.csv'  into table patient_big_file; 
+
+
+Static Partition 
+
+CREATE TABLE patient_static (
+    sno INT,
+    name STRING,
+    drug STRING,
+    gender STRING,
+    tot_amt DOUBLE
+)
+PARTITIONED BY (country STRING)
+STORED AS PARQUET;
+
+LOAD DATA local INPATH '/home/hadoop/datagen_10.txt'  
+INTO TABLE patient_static PARTITION (country='India');
+
+
+Dynamic Partition 
+
+SET hive.exec.dynamic.partition = true;
+SET hive.exec.dynamic.partition.mode = nonstrict;
+
+
+CREATE TABLE patient_dynamic (
+    sno INT,
+    name STRING,
+    gender STRING,
+    tot_amt DOUBLE
+)
+PARTITIONED BY (drug STRING)
+STORED AS PARQUET;
+
+
+INSERT OVERWRITE TABLE patient_dynamic PARTITION (drug)
+SELECT sno, name, gender, tot_amt, drug FROM patient_big_file;
+
+
+SHOW PARTITIONS patient_static;
+SHOW PARTITIONS patient_dynamic;
+
+
+Bucket 
+
+SET hive.enforce.bucketing = true;
+
+
+CREATE TABLE patient_bucketed (
+    sno INT,
+    name STRING,
+    drug STRING,
+    gender STRING,
+    tot_amt DOUBLE
+)
+CLUSTERED BY (sno) INTO 4 BUCKETS
+STORED AS ORC;
+
+INSERT OVERWRITE TABLE patient_bucketed  
+SELECT * FROM patient_bigfile ;
+
+(OR)
+
+LOAD DATA INPATH '/home/hadoop/datagen_10.txt'  
+INTO TABLE patient_bucketed;
+
