@@ -1,1 +1,74 @@
 
+Transformation 
+
+0.Read file 
+val rdd = sc.textFile("data.txt")
+
+
+1. flatMap() - Split each line into words
+
+val wordsRdd = rdd.flatMap(line => line.split(" "))
+
+
+2. map() - Convert words to key-value pairs (word, 1)
+
+val wordPairsRdd = wordsRdd.map(word => (word, 1))
+
+3. reduceByKey() - Count word occurrences
+
+val wordCountRdd = wordPairsRdd.reduceByKey(_ + _)
+
+
+4. filter() - Keep only words with count > 1
+
+val filteredRdd = wordCountRdd.filter { case (_, count) => count > 1 }
+
+
+5. sortBy() - Sort words by count in descending order
+
+val sortedRdd = filteredRdd.sortBy(_._2, ascending = false)
+
+
+Action 
+Step 4: Collect and Display Results
+
+sortedRdd.collect().foreach(println)
+
+
+2. count() - Get the number of elements in an RDD
+
+val count = wordCountRdd.count()
+println(s"Total unique words: $count")
+
+3. take(n) - Get the first n elements
+
+wordCountRdd.take(3).foreach(println)
+
+
+4. first() - Get the first element
+
+val firstElement = wordCountRdd.first()
+println(s"First element: $firstElement")
+
+
+6. saveAsTextFile() - Save results to HDFS or local file system
+
+wordCountRdd.saveAsTextFile("output_wordcount")
+
+
+
+Drug data Analysis 
+
+val rdd = sc.textFile("data.txt")
+
+val drugAmountRdd = rdd.map(line => {
+  val cols = line.split(",") 
+  val drug = cols(2) // Extract drug name
+  val amount = cols(3).toInt 
+  (drug, amount) 
+})
+
+val drugTotalAmtRdd = drugAmountRdd.reduceByKey(_ + _)
+
+ drugTotalAmtRdd.collect().foreach(println)
+
