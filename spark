@@ -72,3 +72,56 @@ val drugTotalAmtRdd = drugAmountRdd.reduceByKey(_ + _)
 
  drugTotalAmtRdd.collect().foreach(println)
 
+
+
+-- Get partition details 
+
+rdd.getNumPartitions
+
+
+1. Check Current Partition Count
+val rdd = sc.textFile("data.txt")
+println(s"Initial partitions: ${rdd.getNumPartitions}")
+
+
+
+2. Increase or Decrease Partitions using repartition(n)
+
+val repartitionedRdd = rdd.repartition(4) 
+println(s"Partitions after repartition: ${repartitionedRdd.getNumPartitions}")
+
+
+
+Cutsom partition 
+
+Step 1: Create a Custom Partitioner
+
+import org.apache.spark.Partitioner
+
+// Custom partitioner class
+class DrugPartitioner(numParts: Int) extends Partitioner {
+  override def numPartitions: Int = numParts
+
+  override def getPartition(key: Any): Int = key match {
+    case "avil"        => 0
+    case "metacine"    => 1
+    case "paracetamol" => 2
+    case _             => 3 // Default partition
+  }
+}
+
+
+Step 2: Load Data and Apply the Custom Partitioner
+
+// Read the data file
+val rdd = sc.textFile("datagen_10.txt.txt")
+
+// Convert to Key-Value Pair RDD (drug as key)
+val kvRdd = rdd.map(line => {
+  val cols = line.split(",")
+  val drug = cols(2) 
+  (drug, line) 
+})
+
+// Apply custom partitioning
+val partitionedRdd = kvRdd.partitionBy(new DrugPartitioner(4))
