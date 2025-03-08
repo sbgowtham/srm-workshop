@@ -16,3 +16,8 @@ bin/cqlsh
 1. Create database 
 
 CREATE KEYSPACE app_name WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 3};
+
+
+2. Table
+
+CREATE TABLE app_name.users (user_id UUID , name TEXT, email TEXT, age INT, created_at TIMESTAMP);
