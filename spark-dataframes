@@ -50,3 +50,26 @@ val df = rdd.toDF("id", "name", "age", "salary")
 df.show()
 
 
+5.Creating a DataFrame with a Custom Schema
+
+import org.apache.spark.sql.types._
+import org.apache.spark.sql.Row
+
+val schema = StructType(Array(
+  StructField("id", IntegerType, true),
+  StructField("name", StringType, true),
+  StructField("age", IntegerType, true),
+  StructField("salary", IntegerType, true)
+))
+
+val data = Seq(
+  Row(1, "Alice", 30, 50000),
+  Row(2, "Bob", 25, 45000),
+  Row(3, "Charlie", 35, 60000)
+)
+
+val rdd = sc.parallelize(data)
+val df = spark.createDataFrame(rdd, schema)
+
+df.show()
+df.printSchema()
