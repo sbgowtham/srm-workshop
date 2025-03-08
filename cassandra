@@ -42,3 +42,4 @@ UPDATE credits SET email = email -['xyz@gmail.com'] where sno = 1;
 
 create table app_name.appinstall(visit_count counter, appname varchar ,ip_address text ,primary key(appname,ip_address));
 
+update appinstall set visit_count= visit_count+1  where appname='amazon' and ip_address = '10.20.1.2';
