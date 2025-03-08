@@ -3,3 +3,8 @@ wget https://archive.apache.org/dist/cassandra/4.0.9/apache-cassandra-4.0.9-bin.
 tar -zxvf apache-cassandra-4.0.9-bin.tar.gz
 
 cd apache-cassandra-4.0.9/
+
+
+1. Create database 
+
+CREATE KEYSPACE app_name WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 3};
