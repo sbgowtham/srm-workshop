@@ -25,3 +25,5 @@ CREATE TABLE app_name.users (user_id UUID , name TEXT, email TEXT, age INT, crea
 CREATE TABLE app_name.users (user_id UUID PRIMARY KEY, name TEXT, email TEXT, age INT, created_at TIMESTAMP);
 
 INSERT INTO app_name.users (user_id, name, email, age, created_at) VALUES (uuid(), 'John Doe', 'john@example.com', 30, toTimestamp(now()));
+
+INSERT INTO app_name.users (user_id, name, email, age, created_at)  VALUES (uuid(), 'John Doe', 'john@example.com', 30, toTimestamp(now())) USING TTL 20;
