@@ -75,7 +75,14 @@ df.show()
 df.printSchema()
 
 6. Read from hive 
+--hive
+create table patient(pid INT, pname STRING, drug STRING,gender STRING, 
+tot_amt INT) row format delimited fields terminated by ',' stored as textfile; 
 
+
+load data local inpath '/home/hadoop/datagen_10.txt'  into table patient; 
+
+--spark-shell
 val df = spark.sql("SELECT * FROM my_database.my_table")
 df.show()
 
