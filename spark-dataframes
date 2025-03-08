@@ -101,3 +101,24 @@ val df = spark.read.option("header", "false") .option("inferSchema", "true").csv
 val selectedDF = df.selectExpr( "sno","name", "drug", "amount * 0.1 as tax_amount" )
 
 selectedDF.show()
+
+9. hive spark joins 
+
+--Hive 
+CREATE TABLE IF NOT EXISTS medical_records (sno INT,doctor_name STRING )stored as textile; 
+
+INSERT INTO medical_records VALUES
+(1, 'Dr. Kumar'),
+(2, 'Dr. Priya'),
+(3, 'Dr. Raj'),
+(4, 'Dr. Kumar'),
+(5, 'Dr. Mehta'),
+(6, 'Dr. Sharma'),
+(7, 'Dr. Ramesh'),
+(8, 'Dr. Raj'),
+(9, 'Dr. Mehta'),
+(10, 'Dr. Kumar');
+
+select  a.pname, b.doctor_name from patient a left join medical_records b on a.pid = b.sno;
+
+
