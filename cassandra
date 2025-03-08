@@ -20,4 +20,7 @@ CREATE KEYSPACE app_name WITH replication = {'class': 'SimpleStrategy', 'replica
 
 2. Table
 
-CREATE TABLE app_name.users (user_id UUID , name TEXT, email TEXT, age INT, created_at TIMESTAMP);
+CREATE TABLE app_name.users (user_id UUID , name TEXT, email TEXT, age INT, created_at TIMESTAMP);  -- error 
+
+CREATE TABLE app_name.users (user_id UUID PRIMARY KEY, name TEXT, email TEXT, age INT, created_at TIMESTAMP);
+
