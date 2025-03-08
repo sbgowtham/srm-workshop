@@ -150,3 +150,38 @@ import org.apache.spark.sql.functions._
 val joindf = patientdf.join (dcotordf , patientdf("pid") === dcotordf("sno"), "left")
 joindf.printSchema
 joindf.select ("pname","doctor_name").show
+
+
+
+10. withcolumn transformation 
+
+import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.functions._
+
+import spark.implicits._
+
+val data = Seq(
+  (1, "Gowtham", "Avil", "Male", 200),
+  (2, "Priya", "Metacin", "Female", 50),
+  (3, "Rahul", "Paracetamol", "Male", 120),
+  (4, "Divya", "Avil", "Female", 300),
+  (5, "Arjun", "Metacin", "Male", 80)
+)
+
+val df = data.toDF("sno", "name", "drug", "gender", "amount")
+
+val renamedDF = df
+  .withColumnRenamed("sno", "transaction_id")
+  .withColumnRenamed("name", "customer_name")
+  .withColumnRenamed("drug", "medicine")
+  .withColumnRenamed("amount", "total_amount")
+
+val transformedDF = renamedDF.withColumn("tax_amount", col("total_amount") * 0.1)
+
+val filteredDF = transformedDF.filter($"total_amount" > 100)
+
+filteredDF.show()
+
+filteredDF.rdd.map(_.mkString(",")).saveAsTextFile("/load_tax_data")
+
+
