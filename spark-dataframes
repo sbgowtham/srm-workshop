@@ -122,3 +122,16 @@ INSERT INTO medical_records VALUES
 select  a.pname, b.doctor_name from patient a left join medical_records b on a.pid = b.sno;
 
 
+-- spark with hive join via df functions 
+
+val patientdf = spark.read.table("patient")
+val dcotordf = spark.read.table("medical_records")
+
+patientdf.show 
+dcotordf.show()
+
+
+import org.apache.spark.sql.functions._
+val joindf = patientdf.join (dcotordf , patientdf("pid") === dcotordf("sno"), "left")
+joindf.printSchema
+joindf.select ("pname","doctor_name").show
