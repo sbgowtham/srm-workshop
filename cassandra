@@ -27,3 +27,13 @@ CREATE TABLE app_name.users (user_id UUID PRIMARY KEY, name TEXT, email TEXT, ag
 INSERT INTO app_name.users (user_id, name, email, age, created_at) VALUES (uuid(), 'John Doe', 'john@example.com', 30, toTimestamp(now()));
 
 INSERT INTO app_name.users (user_id, name, email, age, created_at)  VALUES (uuid(), 'gowtham', 'john@example.com', 30, toTimestamp(now())) USING TTL 20;
+
+
+3 . List 
+CREATE TABLE credits(sno int PRIMARY KEY,appname text , email list<text>); 
+INSERT INTO credits (sno,appname, email) VALUES (1,'flipkart',['abc@gmail.com','cba@yahoo.com']); 
+select * from credits; 
+--Add a data in list 
+UPDATE credits SET email = email +['xyz@gmail.com'] where sno = 1; 
+--Remove a data in list 
+UPDATE credits SET email = email -['xyz@gmail.com'] where sno = 1;
