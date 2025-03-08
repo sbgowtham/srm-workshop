@@ -170,11 +170,7 @@ val data = Seq(
 
 val df = data.toDF("sno", "name", "drug", "gender", "amount")
 
-val renamedDF = df
-  .withColumnRenamed("sno", "transaction_id")
-  .withColumnRenamed("name", "customer_name")
-  .withColumnRenamed("drug", "medicine")
-  .withColumnRenamed("amount", "total_amount")
+val renamedDF = df.withColumnRenamed("sno", "transaction_id").withColumnRenamed("name", "customer_name").withColumnRenamed("drug", "medicine").withColumnRenamed("amount", "total_amount")
 
 val transformedDF = renamedDF.withColumn("tax_amount", col("total_amount") * 0.1)
 
