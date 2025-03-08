@@ -11,3 +11,17 @@ Custom column names
 val df = spark.read.option("header", "false") .option("inferSchema", "true").csv("/data10").toDF("sno", "name", "drug", "gender", "amount")
 
 
+1. Read a json file ( df) 
+
+val df = spark.read.json("/data.json")
+df.show()
+df.printSchema()
+
+Input file 
+
+{"id":1, "name":"Alice", "age":30, "salary":50000}
+{"id":2, "name":"Bob", "age":25, "salary":45000}
+{"id":3, "name":"Charlie", "age":35, "salary":60000}
+
+
+
