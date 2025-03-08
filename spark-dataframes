@@ -1,6 +1,13 @@
-Create DataFrame from CSV / text 
+1.Create DataFrame from CSV / text 
 
-val df = spark.read.option("header", "true") .option("inferSchema", "true").csv("datagen_10.txt.csv")
+val df = spark.read.option("header", "false") .option("inferSchema", "true").csv("/data10")
 
 df.show()  
 df.printSchema() 
+
+
+Custom column names 
+
+val df = spark.read.option("header", "false") .option("inferSchema", "true").csv("/data10").toDF("sno", "name", "drug", "gender", "amount")
+
+
