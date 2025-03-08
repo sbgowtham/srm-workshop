@@ -98,6 +98,6 @@ selectdf.show
 
 val df = spark.read.option("header", "false") .option("inferSchema", "true").csv("/data10").toDF("sno", "name", "drug", "gender", "amount")
 
-val selectedDF = df.selectExpr( "son","name", "drug", "amount * 0.1 as tax_amount" )
+val selectedDF = df.selectExpr( "sno","name", "drug", "amount * 0.1 as tax_amount" )
 
 selectedDF.show()
