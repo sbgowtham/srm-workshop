@@ -73,3 +73,9 @@ val df = spark.createDataFrame(rdd, schema)
 
 df.show()
 df.printSchema()
+
+6. Read from hive 
+
+val df = spark.sql("SELECT * FROM my_database.my_table")
+df.show()
+
