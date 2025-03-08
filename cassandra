@@ -4,6 +4,14 @@ tar -zxvf apache-cassandra-4.0.9-bin.tar.gz
 
 cd apache-cassandra-4.0.9/
 
+bin/cassandra -f 
+
+-- new window 
+
+cd apache-cassandra-4.0.9/
+
+bin/cqlsh 
+
 
 1. Create database 
 
