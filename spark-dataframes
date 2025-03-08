@@ -86,3 +86,11 @@ load data local inpath '/home/hadoop/datagen_10.txt'  into table patient;
 val df = spark.sql("SELECT * FROM my_database.my_table")
 df.show()
 
+7. Dataframe select 
+
+val df = spark.read.option("header", "false") .option("inferSchema", "true").csv("/data10").toDF("sno", "name", "drug", "gender", "amount")
+
+
+val selectdf = df.select("sno","name","drug")
+selectdf.show
+
